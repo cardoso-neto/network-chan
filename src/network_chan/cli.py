@@ -6,22 +6,29 @@ CLIArgs = argparse.Namespace
 
 def get_args() -> CLIArgs:
     parser = argparse.ArgumentParser(
-        description="Network module to share chan files."
+        prog="network-chan", description="Network module to share chan files."
     )
-    subparsers = parser.add_subparsers(help='Choose an action.')
-    add_parser = subparsers.add_parser("add", help="Hash files and add them to IPFS.")
-    get_parser = subparsers.add_parser("get", help="Download files.")
+    subparsers = parser.add_subparsers(help="Choose an action.", dest="command")
+    add_parser = subparsers.add_parser(
+        "add", help="Hash files and add them to IPFS to be served."
+    )
+    get_parser = subparsers.add_parser("get", help="Download folder from IPFS.")
     add_parser.add_argument(
-        "file_paths",
-        help="Paths to folders or files on the filesystem.",
+        "file_path",
+        help="Path to a 'thread folder' on the filesystem.",
         type=Path,
-        nargs="*",
     )
     get_parser.add_argument(
-        "hashes",
-        help="IPFS multibase multihashes.",
+        "url",
+        help="URL of an imageboard thread.",
+        type=str,
+    )
+    get_parser.add_argument(
+        "-p",
+        "--path",
+        help="",
         type=Path,
-        nargs="*",
+        default="~/chan/"
     )
     args = parser.parse_args()
     return args
