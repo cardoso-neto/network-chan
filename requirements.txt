@@ -1,0 +1,2 @@
+chan-url-lib @ git+https://github.com/cardoso-neto/chan-url-lib.git@master
+ipfshttpclient==0.8.0a2
