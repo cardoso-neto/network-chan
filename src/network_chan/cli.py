@@ -27,7 +27,7 @@ def get_args() -> CLIArgs:
         "-p",
         "--path",
         help="",
-        type=Path,
+        type=lambda p: Path(p).expanduser().resolve(),
         default="~/chan/"
     )
     args = parser.parse_args()
